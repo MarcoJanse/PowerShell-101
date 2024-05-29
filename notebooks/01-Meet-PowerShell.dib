@@ -1,0 +1,71 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"pwsh","items":[{"aliases":[],"languageName":"pwsh","name":"pwsh"}]}}
+
+#!markdown
+
+# Introduction
+
+Welcome to this interactive course for PowerShell. You can use these notebooks to get familiar with PowerShell, learn the basics and get advanced in working with PowerShell, scripting and toolmaking. 
+
+#!markdown
+
+## PowerShell versions
+
+Lets start with opening a PowerShell prompt and checking which version you are running.
+
+#!pwsh
+
+$PSVersionTable
+
+#!markdown
+
+## Version overview
+
+As you can see, this notebook uses PowerShell 7.
+
+By default, recent versions of Windows come with ***Windows PowerShell 5.1*** installed. That would look something like this:
+
+    ```PowerShell
+    PS C:> $PSVersionTable
+
+    Name                           Value
+    ----                           -----
+    PSVersion                      5.1.22621.2506
+    PSEdition                      Desktop
+    PSCompatibleVersions           {1.0, 2.0, 3.0, 4.0...}
+    BuildVersion                   10.0.22621.2506
+    CLRVersion                     4.0.30319.42000
+    WSManStackVersion              3.0
+    PSRemotingProtocolVersion      2.3
+    SerializationVersion           1.1.0.1
+    ```
+
+### Windows PowerShell 5.1
+
+- Windows Operating Systems only.
+- Built on .NET Framework.
+- Pre-installed on all recent versions of Windows client and server editions.
+- Includes the PowerShell ISE for creating, editing and running scripts.
+- Version 5.1 is fully supported by Microsoft but does not get any new features anymore; only security and bugfixes.
+
+### Windows PowerShell 7
+
+This version started a version 6 and was referenced as PowerShell Core.Version 7 h
+
+- Cross platform.
+  - Windows
+  - Linux
+  - MacOS
+- Built on .NET Core
+- Backwards compatible with Windows PowerShell scripts and modules
+- Performance improvements compared to previous versions
+- Pipeline parallelization
+- Improved error handling
+- New cmdlets and enhancements
+
+## Which version should I use?
+
+For client systems, you should use the latest and greatest PowerShell, which is version 7.x.
+For Windows Server operating systems, don't bother installing PowerShell 7 on each system, as you should be able to manage your system just fine using Windows PowerShell. Furthermore, that would only just add another application you have to keep up-to-date.
+Only when using a management server that needs to run loads of code, scripts and modules, it can be useful to install PowerShell 7.
