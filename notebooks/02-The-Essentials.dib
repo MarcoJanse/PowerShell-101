@@ -1,0 +1,114 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"name":"csharp"}]}}
+
+#!markdown
+
+# The Essentials
+
+#!markdown
+
+## Introduction
+
+Who of you uses the internet all the time for finding how something works? With Powershell, it seems logic to ask Google or Bing or ChatGPT to provide you with a fully functional script, or a command you needed to configure or fix something. Now with the rise of AI models like ChatGPT, it's even easier to ask everything you don't know how to do yourself from your friendly chatbot.
+
+However, there are several reasons why you should consider using the built-in help and tools of PowerShell.
+
+1. The help function is actually really good
+2. You can skip the help and read the examples first
+3. Using the built-in tools for help will keep you in your focus. Switching context to your browser gets you out of the zone.
+4. Learning by doing will make you smarter and understand your code.
+5. AI still makes a lot of mistakes, which can also be dangerous to just run.
+6. When AI does not have a working solution for you, you will not be able to troubleshoot this code yourself.
+
+#!markdown
+
+<img src="../images/02-asking-help-stackoverflow-meme-01.jpg" width="400" height="500">
+
+#!markdown
+
+# The 3 essential commands
+
+#!markdown
+
+These are the three most essential command to get proficient with PowerShell
+
+- `Get-Help`
+- `Get-Command`
+- `Get-Member`
+
+#!markdown
+
+# Get Help
+
+#!pwsh
+
+# Get help for a specific cmdlet
+Get-Help Get-Service
+
+#!pwsh
+
+# Get examples of how to use a specific cmdlet
+Get-Help Get-Process -Examples
+
+#!pwsh
+
+# Get detailed help for a specific cmdlet
+Get-Help Get-Process -Detailed
+
+#!markdown
+
+> **NOTE** The following commands have to be run in a terminal/console session:
+
+#### Get Help in a separate window
+
+```powershell
+Get-Help -ShowWindow
+```
+
+#### Get-Help vs Help
+If you use help instead of Get-Help, it will paginate the output.
+
+```powershell
+Help Get-Process
+```
+
+#!pwsh
+
+# Compare that to the Get-Help Get-Process command
+
+Get-Help Get-Process
+
+#!pwsh
+
+# Conceptual help articles in PowerShell begin with about_
+Get-Help about_Comparison_Operators
+
+#!markdown
+
+## Great about articles
+
+- about_CommonParameters
+- about_Comparison_Operators
+- about_Foreach
+- about_Functions
+- about_Functions_Advanced
+- about_Hash_tables
+- about_Join
+- about_Operators
+- about_PSCustomObject
+- about_Remote
+- about_Splatting
+- about_Split
+- about_Try_Catch_Finally
+
+#!markdown
+
+### Extra tips for help
+
+- PowerShell doesn't have the help files downloaded by default. The first time you have to use `Update-Help` to download and install the newest help files.
+- Using `help` instead of `Get-Help` will paginate the output.
+- **PowerShell 7 with PSReadline:**
+- Using `[F1]` after a cmdlet will show the help for that command
+  - Using `[F1]` after a parameter from a cmdlet will open the help at that parameter info.
+  - Using `[Alt] + [h]` will give you the parameter info below the prompt.
