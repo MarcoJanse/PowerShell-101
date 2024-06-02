@@ -1,18 +1,90 @@
 #!meta
 
-{"kernelInfo":{"defaultKernelName":"pwsh","items":[{"aliases":[],"languageName":"pwsh","name":"pwsh"}]}}
+{"kernelInfo":{"defaultKernelName":"csharp","items":[{"aliases":[],"name":"csharp"},{"aliases":[],"languageName":"pwsh","name":"pwsh"}]}}
 
 #!markdown
 
 # Introduction
 
-Welcome to this interactive course for PowerShell. You can use these notebooks to get familiar with PowerShell, learn the basics and get advanced in working with PowerShell, scripting and toolmaking. 
+#!markdown
+
+Welcome to this interactive course for PowerShell. You can use these notebooks to get more familiar with PowerShell, learn the basics and get more proficient with PowerShell, scripting and Toolmaking.
 
 #!markdown
 
-## PowerShell versions
+![PowerShell Gui meme](../images/01-introduction-to-powershell-batman-meme.jpg)
 
-Lets start with opening a PowerShell prompt and checking which version you are running.
+#!markdown
+
+## What can you do with these notebooks?
+
+This notebook is intended to help you learn the coding language PowerShell. You can:
+
+- Work through these notebooks on your own.
+- Use these notebooks as prompts to write your own code in Visual Studio.
+
+## Wat is PowerShell?
+
+PowerShell is a cross-platform task automation solution made up of a command-line shell, a scripting language, and a configuration management framework. PowerShell runs on Windows, Linux, and macOS.
+> [Read more](https://learn.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.4)
+
+#!markdown
+
+# Basic commands
+
+#!markdown
+
+## PowerShell: Hello World
+
+Write your first PowerShell program! It outputs a string _"Hello World"_ to the console.
+> Hover your mouse over the following code. On the left side, a little "play" icon should show up. Click that and the code will run!
+
+#!pwsh
+
+"Hello World"
+
+#!markdown
+
+Simply typing a string will print a message to the test console.
+
+`Console.WriteLine` is a method that is used to print a message to a text console. In this case, you specified "Hello World" as the output.
+
+### Declare and use variables
+
+A **variable** is a symbol you can use to run the same code with different values. For example, you can declare a new variable named `aFriend` that you can use to output a string. You can declare this variable by using the `$` in front of the name of the variable, and PowerShell will automatically figure out the type for you.
+
+> Go ahead and run the following code to see the output of **Zelda**.
+>
+> Next, change the name in the variable and run it again to see something different.
+
+#!pwsh
+
+$aFriend = "Zelda"
+$aFriend
+
+#!markdown
+
+### Combining Strings
+
+You may have noticed that the word "Hello" was missing from the last code block. You can fix it by combining multiple string together using `+` to create a new string that it output to the console.
+
+> Run the code to write out a friendly welcome!
+
+#!pwsh
+
+"Hello " + $aFriend + "!"
+
+#!markdown
+
+Congratulation! You just created your first PowerShell script and learned about combining strings with string interpolation.
+
+#!markdown
+
+# PowerShell versions
+
+#!markdown
+
+Lets see which version of PowerShell we are using right now
 
 #!pwsh
 
@@ -20,9 +92,9 @@ $PSVersionTable
 
 #!markdown
 
-## Version overview
+### Version overview
 
-As you can see, this notebook uses PowerShell 7.
+Depending on at which time you run this, you will probably see PowerShell version 7.x in the output.
 
 By default, recent versions of Windows come with ***Windows PowerShell 5.1*** installed. That would look something like this:
 
@@ -41,7 +113,7 @@ By default, recent versions of Windows come with ***Windows PowerShell 5.1*** in
     SerializationVersion           1.1.0.1
     ```
 
-### Windows PowerShell 5.1
+#### Windows PowerShell 5.1
 
 - Windows Operating Systems only.
 - Built on .NET Framework.
@@ -49,7 +121,7 @@ By default, recent versions of Windows come with ***Windows PowerShell 5.1*** in
 - Includes the PowerShell ISE for creating, editing and running scripts.
 - Version 5.1 is fully supported by Microsoft but does not get any new features anymore; only security and bugfixes.
 
-### Windows PowerShell 7
+#### Windows PowerShell 7
 
 This version started a version 6 and was referenced as PowerShell Core.Version 7 h
 
@@ -64,8 +136,29 @@ This version started a version 6 and was referenced as PowerShell Core.Version 7
 - Improved error handling
 - New cmdlets and enhancements
 
-## Which version should I use?
+### Which version should I use?
 
 For client systems, you should use the latest and greatest PowerShell, which is version 7.x.
 For Windows Server operating systems, don't bother installing PowerShell 7 on each system, as you should be able to manage your system just fine using Windows PowerShell. Furthermore, that would only just add another application you have to keep up-to-date.
 Only when using a management server that needs to run loads of code, scripts and modules, it can be useful to install PowerShell 7.
+
+#!markdown
+
+# Playground: Try it yourself
+
+#!markdown
+
+Each module will have a little "playground" at the end. This is a space for you to try writing some code yourself, instead of looking at prewritten code.
+Try out printing words and variables! Here are some prompts to try:
+
+> Print out a personal motto.
+>
+> Make some variables with your favorite foods, and then write a little story involving them.
+>
+> **Challenge!**
+>
+> Make your own Mad Libs! Make a few variables that are verbs, nouns, etcetera, and then use them when you write a story. Have a friend decide the value of each variable and read it to them for a laugh!
+
+#!pwsh
+
+'playground'
