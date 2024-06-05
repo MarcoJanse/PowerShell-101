@@ -78,6 +78,18 @@ You may have noticed that the word "Hello" was missing from the last code block.
 
 Congratulation! You just created your first PowerShell script and learned about combining strings with string interpolation.
 
+#!pwsh
+
+# Here's another one with multiple strings and variables that make up a sentence
+# TIP: Change the variable values for some fun!
+
+$var1 = 'cat'
+$var2 = 'dog'
+$var3 = 'fish'
+$var4 = 'bird'
+
+"The " + $var1 + " chased" + " the " + $var2 + " who" + " ate" + " the " + $var3 + " and" + " was" + " eaten" + " by" + " the " + $var4
+
 #!markdown
 
 # PowerShell versions
@@ -144,6 +156,22 @@ Only when using a management server that needs to run loads of code, scripts and
 
 #!markdown
 
+## PSReleaseTools
+
+If you are using PowerShell 7, there's a module installed called PSReleaseTools. With this module you can check the details of the latest PowerShell release
+
+#!pwsh
+
+# Show the latest stable release of PowerShell
+Get-PSReleaseSummary
+
+#!pwsh
+
+# Show the latest preview release of PowerShell in Markdown format
+Get-PsReleaseSummary -Preview -AsMarkdown | Show-Markdown
+
+#!markdown
+
 # Playground: Try it yourself
 
 #!markdown
@@ -161,4 +189,6 @@ Try out printing words and variables! Here are some prompts to try:
 
 #!pwsh
 
-'playground'
+# Playground
+
+Write-Host "Write your code here"

@@ -17,13 +17,116 @@ However, there are several reasons why you should consider using the built-in he
 1. The help function is actually really good
 2. You can skip the help and read the examples first
 3. Using the built-in tools for help will keep you in your focus. Switching context to your browser gets you out of the zone.
-4. Learning by doing will make you smarter and understand your code.
-5. AI still makes a lot of mistakes, which can also be dangerous to just run.
-6. When AI does not have a working solution for you, you will not be able to troubleshoot this code yourself.
+4. Learning by doing will make you more skilled in PowerShell and understand your code.
+5. Scripts from the Internet can be bad and AI also makes quite lot of mistakes, so it can also be dangerous to just run these scripts without being able to understand them.
+6. When AI or Stack Overflow does not have a working solution for you, you will not be able to troubleshoot this code yourself.
+
+<img src="../images/02-asking-help-stackoverflow-meme-01.jpg" width="400" height="500">
 
 #!markdown
 
-<img src="../images/02-asking-help-stackoverflow-meme-01.jpg" width="400" height="500">
+# The basics
+
+#!markdown
+
+## What are Cmdlets
+
+> A cmdlet is a native PowerShell command-line utility. Cmdlets only exist in PowerShell and are written in a .NET language like C#.
+
+A Cmdlet has a default naming of `[Verb]-[Noun]` like `Get-Process`. The verb can be things like _Get_, _Set_ and _Update_. There is a list of approved verbs that can be used for Cmdlets.
+The fact that we have approved verbs makes it intuitive how a cmdlet is structured. So `Get-Service` gets information about installed services and `Set-Service` can configure installed services.
+
+#!pwsh
+
+## List approved verbs
+Get-Verb
+
+#!pwsh
+
+## List approved verbs based on the Security category
+Get-Verb -Group Security
+
+#!markdown
+
+### What are aliases
+
+Instead of using full Cmdlet names, you can use aliases for a lot of these commands for backwards compatibility and easy typing and remembering.
+
+Some examples:
+
+- **dir** is an alias for `Get-ChildItem`
+- **cd** is an alias for `Set-Location`
+- **copy** is an alias for `Copy-Item`
+- **del** is an alias for `Delete-Item`
+
+There are also aliases for Linux users:
+
+- **ls** is also an alias for `Get-ChildItem`
+- **diff** is an alias for `Compare-Object`
+- **kill** is an alias for `Stop-Process`
+
+These aliases seem to be working als the old-fashioned command-line/cmd.exe tools, but they are actually improved Cmdlets that output objects instead of text, like all PowerShell Cmdlets.
+
+#!pwsh
+
+## To get a list of all aliases
+Get-Alias
+
+#!pwsh
+
+# To find the alias for dir
+Get-Alias dir
+
+#!markdown
+
+### Using external commands
+
+Apart from PowerShell Cmdlets, you can still use older commands like `ping`, `nslookup` and `ipconfig`. When you run this commands, PowerShell will run `cmd.exe` behind the scenes. However, the output of these commands will be text instead of objects.
+PowerShell will never provide a cmdlet to replace all of these old commands. Some work just fine as they are, and don't need a new version.
+
+#!markdown
+
+## The pipeline
+
+PowerShell connects commands to each other using something called a pipeline.
+> The pipeline provides a way for one command to pass, or pipe, its output to another command, allowing that second command to have something to work with.
+
+Some examples:
+
+```PowerShell
+# Get the Bits service and stop the service from running
+Get-Service Bits | Stop-Service
+
+# Get a list of all hotfixes and export the results to a text file
+Get-HotFix | Out-File -Path C:\Temp\Hotfixes.txt
+
+# Get all running processes and export to a csv file
+Get-Process | Sort-Object Name | Export-Csv -Path C:\Temp\Procs.csv
+
+# Import these process again from the csv file
+$Import = Import-Csv -Path C:\Temp\Procs.csv
+
+#!markdown
+
+### Don't use native commands if there's a better PowerShell solution
+
+In my day job, I still see some sysadmins installing the Telnet client on a server to test a TCP port.
+Please don't. There is a built-in `Test-NetConnection` command that can do the trick much better with loads of parameters, which is already installed:
+
+```powershell
+> Test-NetConnection www.nu.nl -port 443
+
+ComputerName     : www.nu.nl
+RemoteAddress    : 104.110.191.33
+RemotePort       : 443
+InterfaceAlias   : Ethernet 2
+SourceAddress    : 192.168.1.39
+TcpTestSucceeded : True
+```
+
+#!markdown
+
+> **Note** When exporting for example Get-Process to a CSV-file, the file will have far more details than when displaying Get-Process on the screen. Most cmdlets only show a subset of all the parameters to keep things readable.
 
 #!markdown
 
@@ -41,6 +144,29 @@ These are the three most essential command to get proficient with PowerShell
 
 # Get Help
 
+#!markdown
+
+## Introduction
+
+Most of us don't like reading, but if you are not willing to read PowerShell's help files, you will not be very effective with PowerShell.
+
+- If you need to perform a task and don't know what command to use, the help system is how you'll find that command. Not Google or Bing or ChatGpt, but the help file.
+- If you run a command and get an error, the help system is what will show you how to properly run the command so you don't get errors.
+- If you want to link multiple command together to perform some complex task, the help system is where you'll find out hw each command is able to connect to others.
+
+#!markdown
+
+## Update your help first
+
+Since PowerShell v3, there are no help files installed initially. You have to download the most recent help files first with `Update-Help`
+
+> **Important** For Windows PowerShell you need to run PowerShell as administrator to update the help files. PowerShell 7 downloads the help files in the Current User scope.
+
+#!pwsh
+
+# Update PowerShell help files
+Update-Help
+
 #!pwsh
 
 # Get help for a specific cmdlet
@@ -55,6 +181,11 @@ Get-Help Get-Process -Examples
 
 # Get detailed help for a specific cmdlet
 Get-Help Get-Process -Detailed
+
+#!pwsh
+
+# Get help for something you don't know the exact cmdlet for
+Get-Help log
 
 #!markdown
 
@@ -102,9 +233,14 @@ Get-Help about_Comparison_Operators
 - about_Split
 - about_Try_Catch_Finally
 
+#!pwsh
+
+# Go to the online help directly instead of have to search for it
+Get-Help Get-Process -Online
+
 #!markdown
 
-### Extra tips for help
+## Extra tips for help
 
 - PowerShell doesn't have the help files downloaded by default. The first time you have to use `Update-Help` to download and install the newest help files.
 - Using `help` instead of `Get-Help` will paginate the output.
@@ -112,3 +248,33 @@ Get-Help about_Comparison_Operators
 - Using `[F1]` after a cmdlet will show the help for that command
   - Using `[F1]` after a parameter from a cmdlet will open the help at that parameter info.
   - Using `[Alt] + [h]` will give you the parameter info below the prompt.
+
+#!markdown
+
+# Get-Command
+
+#!markdown
+
+> To mention:
+>
+> - tab completion
+> PSReadLine
+> show-command
+> 
+
+#!markdown
+
+# Playground
+
+#!markdown
+
+Try the following things:
+
+1. Ask some examples for the Get-Process command
+2. See the difference between the external `nslookup www.nu.nl` command and the `Resolve-DnsName www.nu.nl` command
+
+#!pwsh
+
+# Playground
+
+Write-Host "Write your code here"
