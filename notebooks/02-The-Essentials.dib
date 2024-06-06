@@ -255,12 +255,162 @@ Get-Help Get-Process -Online
 
 #!markdown
 
-> To mention:
->
-> - tab completion
-> PSReadLine
-> show-command
-> 
+## Introduction
+
+From the help file:
+
+>  The `Get-Command` cmdlet gets all commands that are installed on the computer, including cmdlets, aliases, functions, filters, scripts, and applications.
+>  `Get-Command` gets the commands from PowerShell modules and commands that were imported from other sessions. To get only commands that have been imported into the current session, use the ListImported parameter.
+
+With `Get-Command`, you can find out what commands are available in a module, and can be used in combination with `Get-Help` to narrow down your search for the right Cmdlet. 
+
+#!pwsh
+
+# List how many commands are available and loaded in PowerShell
+(Get-Command).Count
+
+#!pwsh
+
+# List how many cmdlets are available and loaded in PowerShell
+(Get-Command -CommandType Cmdlet).Count
+
+#!pwsh
+
+# List all commands that are part of the preInstalled PSReadline module
+Get-Command -Module PSReadline
+
+#!pwsh
+
+# Find commands that have the word "process" in them
+Get-Command -Name *process*
+
+#!pwsh
+
+# Narrow this down to only native PowerShell commands
+Get-Command -Name *process* -CommandType Cmdlet
+
+#!pwsh
+
+# Further narrow it down to only command that end with process and from the default PowerShell Module
+Get-Command -Noun *process -Module Microsoft.PowerShell.Management
+
+#!markdown
+
+### Cheating a little bit with Show-Command.
+
+If you want to explore a command that you have never used before, you could try `Show-Command` to give you a graphical interface in which you can see and fill in all parameters. It can also help if you are having trouble getting the syntax right with spaces, commas, dashes and whatnot.
+
+This 
+
+```PowerShell
+Show-Command Get-EventLog
+```
+
+![Show-Command](../images/02-image-show-command.png)
+
+> **NOTE** Show-Command is not available on Windows Server Core edition and does not work in this interactive notebook. Please try the command in a PowerShell console session or the VSCode terminal.
+
+#!markdown
+
+### Make your life easier with Key combinations and PSReadLine
+
+Although PowerShell is all about typing commands, you still should be as lazy as can be, and let PowerShell do the work for you.
+Some essential keys and key combinations:
+
+#### Tab-completion
+Using the [Tab] key you can complete command names, parameter names and argument values.
+
+![Tab completion](../images/02-gif-tab-menu-complete.gif)
+
+More info: [Using tab-completion in the shell | Microsoft Learn](https://learn.microsoft.com/en-us/powershell/scripting/learn/shell/tab-completion?view=powershell-7.4)
+
+### Predictive IntelliSense with PSReadLine
+
+When you use the latest PSReadLine, you can use Predictive IntelliSense to provide suggestions for full commands based on items from your PSReadLine history.
+
+![PSReadLine inline predictions from History or plugin](../images/02-image-psreadline-predictor-inline-1.png)
+
+Using the [right arrow] accepts an inline suggestion, which you can edit before hitting [Enter]
+
+PSReadline also offers `ListView`
+
+![PSReadLine ListView](../images/02-image-psreadline-predictor-listview-1.png)
+
+You can use [F2] to switch between views.
+
+
+More info: [Using predictors in PSReadLine | Microsoft Learn](https://learn.microsoft.com/en-us/powershell/scripting/learn/shell/using-predictors?view=powershell-7.4)
+
+#!markdown
+
+# Get-Member
+
+#!markdown
+
+## Introduction
+
+Get-Member can be used learn more about an object. To know which properties an object has, use `Get-Member`.
+
+#!pwsh
+
+# Get the properties of the Get-Process generated object
+Get-Process | Get-Member
+
+#!pwsh
+
+# Get only the 
+Get-Process | Get-member -MemberType Property
+
+#!markdown
+
+## Methods
+
+Many object support one or more methods, which are actions you can direct the object to take. For example, a process object has a kill method.
+
+#!pwsh
+
+# Get the methods of the Get-Proces generated object
+Get-Process | Get-Member -MemberType Method
+
+#!markdown
+
+Here's an example of different ways to kill a process
+
+```powershell
+# Start a notepad process first
+Start-Process notepad
+```
+
+#### By Method
+
+```powershell
+(Get-Process notepad)Kill()
+```
+
+#### By piping to Stop-Process
+
+```powershell
+Get-Process notepad | Stop-Process
+```
+
+#### By using Stop-Process directly
+
+```powershell
+Stop-Process notepad
+```
+
+#!markdown
+
+### Using Get-Member to properly pipe objects
+
+Whenever you string two commands together, PowerShell has to figure out how to get the output of the first command to the output of the second command.
+
+There are two options that are tried in the following order:
+
+1. By value
+2. By property name
+
+#### By value
 
 #!markdown
 
