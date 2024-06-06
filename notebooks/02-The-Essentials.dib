@@ -409,6 +409,30 @@ There are two options that are tried in the following order:
 
 #### By value
 
+When a parameter accepts input ByValue, it means that the entire object from the pipeline can be directly bound to that parameter if the type matches.
+
+##### Example:
+
+```powershell
+Get-Process notepad | Stop-Process
+```
+
+In this example, `Get-Process` outputs a list of process objects. `Stop-Process` has a parameter `(-InputObject)` that accepts pipeline input ByValue for process objects. The process objects output by `Get-Process` are passed directly to `Stop-Process`.
+
+#### ByPropertyName
+
+When a parameter accepts input ByPropertyName, it means that the cmdlet will look at the properties of the objects coming from the pipeline and attempt to match those properties by name to the parameters of the cmdlet.
+
+##### Example
+
+When using `Get-Service` and piping to `Get-Member` this shows that this is an `System.Service.ServiceController` type.
+
+If you would pipe Get-Service to Stop-Process, PowerShell would try `ByValue` first and would result in lots of error messages, as Get-Process and Stop-Process are of the `System.Diagnostics.Process` and they don't match on value.
+
+However, some processes have the same name as the actual service name, and for these services, they would actually stop based on `-ByPropertyName`
+
+![Pippeline by propertyName](../images/02-pipeline-propertyName.png)
+
 #!markdown
 
 # Playground
