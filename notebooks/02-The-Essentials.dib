@@ -79,32 +79,10 @@ Get-Alias dir
 
 #!markdown
 
-### Using external commands
+## Using external commands
 
 Apart from PowerShell Cmdlets, you can still use older commands like `ping`, `nslookup` and `ipconfig`. When you run this commands, PowerShell will run `cmd.exe` behind the scenes. However, the output of these commands will be text instead of objects.
 PowerShell will never provide a cmdlet to replace all of these old commands. Some work just fine as they are, and don't need a new version.
-
-#!markdown
-
-## The pipeline
-
-PowerShell connects commands to each other using something called a pipeline.
-> The pipeline provides a way for one command to pass, or pipe, its output to another command, allowing that second command to have something to work with.
-
-Some examples:
-
-```PowerShell
-# Get the Bits service and stop the service from running
-Get-Service Bits | Stop-Service
-
-# Get a list of all hotfixes and export the results to a text file
-Get-HotFix | Out-File -Path C:\Temp\Hotfixes.txt
-
-# Get all running processes and export to a csv file
-Get-Process | Sort-Object Name | Export-Csv -Path C:\Temp\Procs.csv
-
-# Import these process again from the csv file
-$Import = Import-Csv -Path C:\Temp\Procs.csv
 
 #!markdown
 
@@ -123,10 +101,29 @@ InterfaceAlias   : Ethernet 2
 SourceAddress    : 192.168.1.39
 TcpTestSucceeded : True
 ```
+> **Note** When exporting for example Get-Process to a CSV-file, the file will have far more details than when displaying Get-Process on the screen. Most cmdlets only show a subset of all the parameters to keep things readable.
 
 #!markdown
 
-> **Note** When exporting for example Get-Process to a CSV-file, the file will have far more details than when displaying Get-Process on the screen. Most cmdlets only show a subset of all the parameters to keep things readable.
+# The Pipeline
+
+PowerShell connects commands to each other using something called a pipeline.
+> The pipeline provides a way for one command to pass, or pipe, its output to another command, allowing that second command to have something to work with.
+
+Some examples:
+
+```PowerShell
+# Get the Bits service and stop the service from running
+Get-Service Bits | Stop-Service
+
+# Get a list of all hotfixes and export the results to a text file
+Get-HotFix | Out-File -Path C:\Temp\Hotfixes.txt
+
+# Get all running processes and export to a csv file
+Get-Process | Sort-Object Name | Export-Csv -Path C:\Temp\Procs.csv
+
+# Import these process again from the csv file
+$Import = Import-Csv -Path C:\Temp\Procs.csv
 
 #!markdown
 
@@ -401,7 +398,7 @@ Stop-Process notepad
 
 #!markdown
 
-### Using Get-Member to properly pipe objects
+## Using Get-Member to properly pipe objects
 
 Whenever you string two commands together, PowerShell has to figure out how to get the output of the first command to the output of the second command.
 
